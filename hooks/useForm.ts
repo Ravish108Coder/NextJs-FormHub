@@ -1,8 +1,6 @@
-import { useToast } from "@/components/ui/use-toast";
 import { useState } from "react";
 
 const useForm = <T>(initialState: T) => {
-    const { toast } = useToast();
     const [formDetails, setFormDetails] = useState<T>(initialState);
     const [errors, setErrors] = useState<{ [key: string]: string }>({});
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,18 +41,13 @@ const useForm = <T>(initialState: T) => {
         e.preventDefault();
         if (validate(validateFields)) {
             console.log("Form Details:", formDetails);
-            // toast({
-            //     title: "Form Submitted",
-            //     description: JSON.stringify(formDetails),
-            //     duration: 5000
-            // });
             setIsModalOpen(true)
-            console.clear();
         }
     };
-
+    
     const closeModal = () => {
         setIsModalOpen(false);
+        setFormDetails(initialState)
       };
 
     return {
